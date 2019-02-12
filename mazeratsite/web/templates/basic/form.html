@@ -1,0 +1,55 @@
+{% load widget_tweaks %}
+
+<form role="form" action="{{ form_action|default:"." }}" method="post"> {% csrf_token %}
+  {{ form.non_field_errors }}
+  {% if form.non_field_errors %}
+    <div class="alert alert-danger">{{ form.non_field_errors|join:"<br \>" }}</div>
+  {% endif %}
+{#  {{ form.non_field_errors }}#}
+  {% for field in form.hidden_fields %}
+    {{ field }}
+  {% endfor %}
+  {% for field in form.visible_fields %}
+    <div class="form-group {% if field.errors %}has-error{% endif %}">
+{#        {{ field.field.widget.input_type }}#}
+        {% if field.field.widget.input_type == 'checkbox' %}
+            <div class="form-check">
+              {{ field|add_class:"form-check-input" }}
+              <label class="form-check-label" for="{{ field.id_for_label }}">
+                {{ field.label }}
+              </label>
+            </div>
+        {% elif field.field.widget.input_type == 'textt' %}
+            <label for="{{ field.id_for_label }}" class="control-label">{{ field.label }}</label>
+            {% if field.help_text %}
+                {% with field.id_for_label|add:"_help" as id_for_help %}
+                    {% with "aria-describedby:"|add:id_for_help as aria_help %}
+                        {{ field|add_class:"form-control"|attr:aria_help }}
+                    {% endwith %}
+                    <small id="{{ id_for_help }}" class="form-text text-muted">{{ field.help_text }}</small>
+                {% endwith %}
+            {% else %}
+                {{ field|add_class:"form-control" }}
+            {% endif %}
+        {% else %}
+            {% if field.label_tag %}
+{#            {{ field.label_tag|add_class:"control-label" }}#}
+                <label for="{{ field.id_for_label }}" class="control-label">{{ field.label }}</label>
+            {% endif %}
+            {% if field.help_text %}
+                <span class="help-block">{{ field.help_text }}</span>
+            {% endif %}
+            {% if field.errors %}
+                <span class="help-block">{{ field.errors|join:"<br\>" }}</span>
+            {% endif %}
+            {{ field|add_class:"form-control" }}
+        {% endif %}
+    </div>
+  {% endfor %}
+
+  {% if submit %}
+    <input class="btn btn-success" type="submit" value="{{ submit }}">
+  {% else %}
+    <input class="btn btn-success" type="submit" value="Submit">
+  {% endif %}
+</form>

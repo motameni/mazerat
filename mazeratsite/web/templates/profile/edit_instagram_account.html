@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% load view_extras %}
+
+{% block content %}
+    <div class="container">
+{#        <div class="row mt-2">#}
+{#            <div class="col-sm-6">#}
+{#                {% include "basic/form.html" with form=instagram_tag_form %}#}
+{#            </div>#}
+{#        </div>#}
+        <div class="row mt-2 mb-3">
+            <div class="col-sm-6">
+                {% include "basic/form.html" with form=instagram_account_setting_form submit="Change settings" form_action=instagram_account.id %}
+            </div>
+        </div>
+{#        <div class="row mt-5">#}
+{#            <div class="col-sm">#}
+{#                <h5>Tag list for {{ instagram_account.username }} account:</h5>#}
+{#                <table class="table table-bordered">#}
+{#                    <tr>#}
+{#                        <th>Tag</th>#}
+{#                        <th>Activation Status</th>#}
+{#                    </tr>#}
+{#                {% for tag_item in tag_list %}#}
+{#                    <tr>#}
+{#                        <td>{{ tag_item.tag }}</td>#}
+{#                        <td>#}
+{#                            {% if tag_item.is_active %}#}
+{#                                <i class="fas fa-check-circle text-success"></i>#}
+{#                            {% else %}#}
+{#                                <i class="fas fa-times-circle text-danger"></i>#}
+{#                            {% endif %}#}
+{#                        </td>#}
+{#                    </tr>#}
+{#                {% endfor %}#}
+{#                </table>#}
+{#            </div>#}
+{#        </div>#}
+    </div>
+{% endblock %}

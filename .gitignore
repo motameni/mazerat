@@ -1,0 +1,14 @@
+.idea/
+Include/
+Lib/
+Scripts/
+errors.log
+bash.exe.stackdump
+mazeratsite/*.bak
+mazeratsite/*.dat
+mazeratsite/*.dir
+mazeratsite/*.db
+mazeratsite/*.session
+pip-selfcheck.json
+pyvenv.cfg
+
